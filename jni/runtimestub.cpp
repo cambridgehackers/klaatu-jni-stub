@@ -40,4 +40,9 @@ AndroidRuntime* AndroidRuntime::getRuntime()
 {
     return 0;
 }
+// callStatic was in 2.3.7
+status_t AndroidRuntime::callStatic(const char* className, const char* methodName)
+{
+    return NO_ERROR;
+}
 }   // namespace android
