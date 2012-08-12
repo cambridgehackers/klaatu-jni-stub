@@ -34,6 +34,9 @@ jobject jniCreateFileDescriptor(C_JNIEnv* env, int fd) {
 int jniThrowNullPointerException(C_JNIEnv* env, const char* msg) {
     return 0;
 }
+int jniThrowIOException(C_JNIEnv* env, int errnum) {
+    return 0;
+}
 extern "C" int jniThrowException(C_JNIEnv* env, const char* className, const char* msg) {
     return 0;
 }
