@@ -21,6 +21,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES += $(JNI_H_INCLUDE)
+LOCAL_CFLAGS += -DPLATFORM_VERSION=V$(subst .,_,$(PLATFORM_VERSION))
 LOCAL_SRC_FILES := runtimestub.cpp
 LOCAL_MODULE:= libandroid_runtime
 
