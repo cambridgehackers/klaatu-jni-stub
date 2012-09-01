@@ -40,6 +40,10 @@ AndroidRuntime* AndroidRuntime::getRuntime()
 {
     return 0;
 }
+/*static*/ int AndroidRuntime::registerNativeMethods(JNIEnv* env, const char* className, const JNINativeMethod* gMethods, int numMethods)
+{
+    return 0;
+}
 // callStatic was in 2.3.7
 #define V2_3_7 1
 #if defined(PLATFORM_VERSION) && (PLATFORM_VERSION == 1)
