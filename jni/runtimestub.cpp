@@ -45,6 +45,7 @@ AndroidRuntime* AndroidRuntime::getRuntime()
     return 0;
 }
 // callStatic was in 2.3.7
+#define V2_3_6 1
 #define V2_3_7 1
 #if defined(PLATFORM_VERSION) && (PLATFORM_VERSION == 1)
 status_t AndroidRuntime::callStatic(const char* className, const char* methodName)
