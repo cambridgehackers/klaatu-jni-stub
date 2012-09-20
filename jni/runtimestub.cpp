@@ -44,7 +44,13 @@ AndroidRuntime* AndroidRuntime::getRuntime()
 {
     return 0;
 }
-// callStatic was in 2.3.7
+// callStatic was in 2.3
+#define V2_3_0 1
+#define V2_3_1 1
+#define V2_3_2 1
+#define V2_3_3 1
+#define V2_3_4 1
+#define V2_3_5 1
 #define V2_3_6 1
 #define V2_3_7 1
 #if defined(PLATFORM_VERSION) && (PLATFORM_VERSION == 1)
