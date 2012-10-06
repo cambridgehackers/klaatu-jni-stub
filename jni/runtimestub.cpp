@@ -20,7 +20,30 @@
 
 #include "JNIHelp.h"
 #include <android_runtime/AndroidRuntime.h>
+#include <android/log.h>
 
+static int dummyitem;
+static jclass dummyFindClass(JNIEnv *env, const char* name)
+{
+    __android_log_print( ANDROID_LOG_INFO, "", "dummyFindClass(%s)", name );
+    return (jclass) &dummyitem;
+}
+static jmethodID dummyGetStaticMethodID(JNIEnv *env, jclass clazz, const char* name, const char* sig)
+{
+    __android_log_print( ANDROID_LOG_INFO, "", "dummyGetStaticMethodID(%s, %s)", name, sig);
+    return (jmethodID) &dummyitem;
+}
+static void dummyCallStaticVoidMethod(JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+{
+    __android_log_print( ANDROID_LOG_INFO, "", "dummyCallStaticVoidMethod()" );
+}
+static void dummyCallStaticVoidMethodV(JNIEnv*, jclass, jmethodID, va_list)
+{
+    __android_log_print( ANDROID_LOG_INFO, "", "dummyCallStaticVoidMethodV()" );
+}
+
+static struct JNINativeInterface dummyJNINativeInterface;
+static JNIEnv dummyJNIEnv;
 namespace android
 {
 int openContentProviderFile(const String16& uri)
@@ -34,7 +57,12 @@ int openContentProviderFile(const String16& uri)
 }
 /*static*/ JNIEnv* AndroidRuntime::getJNIEnv()
 {
-    return 0;
+    dummyJNINativeInterface.FindClass=dummyFindClass;
+    dummyJNINativeInterface.GetStaticMethodID=dummyGetStaticMethodID;
+    dummyJNINativeInterface.CallStaticVoidMethod=dummyCallStaticVoidMethod;
+    dummyJNINativeInterface.CallStaticVoidMethodV=dummyCallStaticVoidMethodV;
+    dummyJNIEnv.functions=&dummyJNINativeInterface;
+    return &dummyJNIEnv;
 }
 AndroidRuntime* AndroidRuntime::getRuntime()
 {
