@@ -44,3 +44,11 @@ extern "C" int jniThrowException(C_JNIEnv* env, const char* className, const cha
 int jniThrowRuntimeException(C_JNIEnv* env, const char* msg) {
     return 0;
 }
+int jniGetFDFromFileDescriptor(C_JNIEnv* env, jobject fileDescriptor)
+{
+return 0;
+}
+extern "C" int jniThrowExceptionFmt(C_JNIEnv* env, const char* className, const char* fmt, va_list args)
+{
+return 0;
+}
