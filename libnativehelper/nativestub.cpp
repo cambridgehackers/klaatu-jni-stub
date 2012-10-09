@@ -40,3 +40,7 @@ int jniThrowIOException(C_JNIEnv* env, int errnum) {
 extern "C" int jniThrowException(C_JNIEnv* env, const char* className, const char* msg) {
     return 0;
 }
+/////////////////////////// add back in input server, etc
+int jniThrowRuntimeException(C_JNIEnv* env, const char* msg) {
+    return 0;
+}
