@@ -18,18 +18,23 @@
  DEALINGS IN THE SOFTWARE.
 */
 
+#define V2_3 23
+#define V4_1 41
 #include "JNIHelp.h"
 #include <android_runtime/AndroidRuntime.h>
 #include <android/log.h>
 #include "android_view_InputChannel.h"
 #include "android_os_MessageQueue.h"
 #include "android_view_PointerIcon.h"
-#include "surfaceflinger/Surface.h"
-#include "MessageQueue.h"
+#include "Surface.h"
 #include "camera/Camera.h"
 #include "android/graphics/GraphicsJNI.h"
 #include "utils/Looper.h"
-//#include <androidfw/InputDevice.h>
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 41)
+#include <androidfw/InputDevice.h>
+#else
+#include "MessageQueue.h"
+#endif
 
 static int dummyitem;
 static jclass dummyFindClass(JNIEnv *env, const char* name)
@@ -84,7 +89,6 @@ AndroidRuntime* AndroidRuntime::getRuntime()
     return 0;
 }
 // callStatic was in 2.3
-#define V2_3 23
 #if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 23)
 status_t AndroidRuntime::callStatic(const char* className, const char* methodName)
 {
@@ -106,7 +110,6 @@ extern bool android_server_PowerManagerService_isScreenBright();
 extern void android_server_PowerManagerService_userActivity(nsecs_t eventTime, int32_t eventType);
 extern void android_server_PowerManagerService_goToSleep(nsecs_t eventTime);
 #endif
-#define V4_1 41
 #if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 41)
 sp<MessageQueue> android_os_MessageQueue_getMessageQueue( JNIEnv* env, jobject messageQueueObj)
 {
