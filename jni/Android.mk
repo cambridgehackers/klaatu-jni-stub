@@ -22,6 +22,7 @@ include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES += $(JNI_H_INCLUDE) frameworks/base/core/jni external/skia/include/core \
     frameworks/base/services/surfaceflinger frameworks/native/services/surfaceflinger \
+    frameworks/base/include/surfaceflinger \
     frameworks/native/include/gui
 SVERSION:=$(subst ., ,$(PLATFORM_VERSION))
 LOCAL_CFLAGS += -DSHORT_PLATFORM_VERSION=V$(word 1,$(SVERSION))_$(word 2,$(SVERSION))
