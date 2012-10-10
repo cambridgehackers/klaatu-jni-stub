@@ -18,14 +18,14 @@
  DEALINGS IN THE SOFTWARE.
 */
 
-#define V2_3 23
-#define V4_1 41
 #include "JNIHelp.h"
 #include <android_runtime/AndroidRuntime.h>
 #include <android/log.h>
 #include "android_view_InputChannel.h"
 #include "android_os_MessageQueue.h"
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION != 23)
 #include "android_view_PointerIcon.h"
+#endif
 #include "Surface.h"
 #include "camera/Camera.h"
 #include "android/graphics/GraphicsJNI.h"
@@ -124,6 +124,10 @@ sp<Looper> android_os_MessageQueue_getLooper(JNIEnv* env, jobject messageQueueOb
 return 0;
 }
 #endif
+int getParcelFileDescriptorFD(JNIEnv* env, jobject object)
+{
+return 0;
+}
 Parcel* parcelForJavaObject(JNIEnv* env, jobject obj)
 {
 return 0;
@@ -166,6 +170,10 @@ MotionEvent* android_view_MotionEvent_getNativePtr(JNIEnv* env, jobject eventObj
 {
 return 0;
 }
+void android_view_MotionEvent_toNative(JNIEnv* env, jobject eventObj, MotionEvent* event)
+{
+}
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION != 23)
 status_t android_view_PointerIcon_load(JNIEnv* env, jobject pointerIconObj, jobject contextObj, PointerIcon* outPointerIcon)
 {
 return 0;
@@ -174,6 +182,7 @@ status_t android_view_PointerIcon_loadSystemIcon(JNIEnv* env, jobject contextObj
 {
 return 0;
 }
+#endif
 SkRegion* android_graphics_Region_getSkRegion(JNIEnv* env, jobject regionObj)
 {
 return 0;
@@ -181,23 +190,36 @@ return 0;
 AndroidRuntime::~AndroidRuntime()
 {
 }
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 23)
+status_t AndroidRuntime::callMain(const char* className, int argc, const char* const argv[])
+{
+return 0;
+}
+void AndroidRuntime::start(const char *classname, bool foo)
+{
+}
+void AndroidRuntime::start(void)
+{
+}
+#else
 status_t AndroidRuntime::callMain(const char* className, jclass clazz, int argc, const char* const argv[])
-{
-return 0;
-}
-char* AndroidRuntime::toSlashClassName(const char* className)
-{
-return 0;
-}
-int AndroidRuntime::addVmArguments(int argc, const char* const argv[])
 {
 return 0;
 }
 void AndroidRuntime::start(const char *classname, const char* options)
 {
 }
+char* AndroidRuntime::toSlashClassName(const char* className)
+{
+return 0;
+}
 void AndroidRuntime::onVmCreated(JNIEnv* env)
 {
+}
+#endif
+int AndroidRuntime::addVmArguments(int argc, const char* const argv[])
+{
+return 0;
 }
 sp<Surface> Surface_getSurface(JNIEnv* env, jobject thiz)
 {

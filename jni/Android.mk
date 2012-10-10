@@ -25,7 +25,7 @@ LOCAL_C_INCLUDES += $(JNI_H_INCLUDE) frameworks/base/core/jni external/skia/incl
     frameworks/base/include/surfaceflinger \
     frameworks/native/include/gui
 SVERSION:=$(subst ., ,$(PLATFORM_VERSION))
-LOCAL_CFLAGS += -DSHORT_PLATFORM_VERSION=V$(word 1,$(SVERSION))_$(word 2,$(SVERSION))
+LOCAL_CFLAGS += -DSHORT_PLATFORM_VERSION=$(word 1,$(SVERSION))$(word 2,$(SVERSION))
 LOCAL_SRC_FILES := runtimestub.cpp
 LOCAL_MODULE:= libandroid_runtime
 LOCAL_SHARED_LIBRARIES := liblog libutils
