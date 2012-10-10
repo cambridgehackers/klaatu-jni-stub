@@ -24,10 +24,12 @@
 #include "android_view_InputChannel.h"
 #include "android_os_MessageQueue.h"
 #include "android_view_PointerIcon.h"
-#include "gui/Surface.h"
+#include "surfaceflinger/Surface.h"
+#include "MessageQueue.h"
 #include "camera/Camera.h"
 #include "android/graphics/GraphicsJNI.h"
-#include <androidfw/InputDevice.h>
+#include "utils/Looper.h"
+//#include <androidfw/InputDevice.h>
 
 static int dummyitem;
 static jclass dummyFindClass(JNIEnv *env, const char* name)
@@ -82,15 +84,8 @@ AndroidRuntime* AndroidRuntime::getRuntime()
     return 0;
 }
 // callStatic was in 2.3
-#define V2_3_0 1
-#define V2_3_1 1
-#define V2_3_2 1
-#define V2_3_3 1
-#define V2_3_4 1
-#define V2_3_5 1
-#define V2_3_6 1
-#define V2_3_7 1
-#if defined(PLATFORM_VERSION) && (PLATFORM_VERSION == 1)
+#define V2_3 23
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 23)
 status_t AndroidRuntime::callStatic(const char* className, const char* methodName)
 {
     return NO_ERROR;
@@ -111,10 +106,21 @@ extern bool android_server_PowerManagerService_isScreenBright();
 extern void android_server_PowerManagerService_userActivity(nsecs_t eventTime, int32_t eventType);
 extern void android_server_PowerManagerService_goToSleep(nsecs_t eventTime);
 #endif
+#define V4_1 41
+#if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 41)
 sp<MessageQueue> android_os_MessageQueue_getMessageQueue( JNIEnv* env, jobject messageQueueObj)
 {
 return 0;
 }
+#else
+void AndroidRuntime::onExit(int code)
+{
+}
+sp<Looper> android_os_MessageQueue_getLooper(JNIEnv* env, jobject messageQueueObj)
+{
+return 0;
+}
+#endif
 Parcel* parcelForJavaObject(JNIEnv* env, jobject obj)
 {
 return 0;

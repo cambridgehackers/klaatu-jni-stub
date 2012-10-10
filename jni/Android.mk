@@ -20,8 +20,10 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_C_INCLUDES += $(JNI_H_INCLUDE) frameworks/base/core/jni external/skia/include/core
-LOCAL_CFLAGS += -DPLATFORM_VERSION=V$(subst .,_,$(PLATFORM_VERSION))
+LOCAL_C_INCLUDES += $(JNI_H_INCLUDE) frameworks/base/core/jni external/skia/include/core \
+    frameworks/base/services/surfaceflinger
+SHORT_PLATFORM_VERSION=${PLATFORM_VERSION:0:3}
+LOCAL_CFLAGS += -DSHORT_PLATFORM_VERSION=V$(subst .,_,$(SHORT_PLATFORM_VERSION))
 LOCAL_SRC_FILES := runtimestub.cpp
 LOCAL_MODULE:= libandroid_runtime
 LOCAL_SHARED_LIBRARIES := liblog libutils

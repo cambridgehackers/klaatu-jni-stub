@@ -14,4 +14,8 @@ int32_t ANativeWindow_setBuffersGeometry(ANativeWindow* window, int32_t width, i
 {
 return 0;
 }
+ANativeWindow* ANativeWindow_fromSurfaceTexture(JNIEnv* env, jobject surfaceTexture)
+{
+return 0;
+}
 }
