@@ -71,6 +71,14 @@ AndroidRuntime::AndroidRuntime()
 {
     return 0;
 }
+static jint dummyGetEnv(JavaVM* a, void**b, jint c)
+{
+    *b = (void *)&dummyJNIEnv;
+    return 0;
+}
+static struct JNIInvokeInterface dummyinvinterface;
+static struct _JavaVM dummyjavavm = { &dummyinvinterface };
+
 /*static*/ JNIEnv* AndroidRuntime::getJNIEnv()
 {
     dummyJNINativeInterface.FindClass=dummyFindClass;
@@ -78,6 +86,7 @@ AndroidRuntime::AndroidRuntime()
     dummyJNINativeInterface.CallStaticVoidMethod=dummyCallStaticVoidMethod;
     dummyJNINativeInterface.CallStaticVoidMethodV=dummyCallStaticVoidMethodV;
     dummyJNIEnv.functions=&dummyJNINativeInterface;
+    dummyinvinterface.GetEnv=dummyGetEnv;
     return &dummyJNIEnv;
 }
 AndroidRuntime* AndroidRuntime::getRuntime()
