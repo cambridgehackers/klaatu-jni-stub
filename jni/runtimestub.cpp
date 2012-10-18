@@ -77,7 +77,7 @@ static jint dummyGetEnv(JavaVM* a, void**b, jint c)
     return 0;
 }
 static struct JNIInvokeInterface dummyinvinterface;
-static struct _JavaVM dummyjavavm = { &dummyinvinterface };
+extern "C" struct _JavaVM dummyjavavm = { &dummyinvinterface };
 
 /*static*/ JNIEnv* AndroidRuntime::getJNIEnv()
 {
