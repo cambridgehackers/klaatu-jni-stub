@@ -32,6 +32,9 @@
 #include "utils/Looper.h"
 #if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 41)
 #include <androidfw/InputDevice.h>
+#elif defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 42)
+#include <androidfw/InputDevice.h>
+#include "android_runtime/android_view_Surface.h"
 #else
 #include "MessageQueue.h"
 #endif
@@ -121,6 +124,15 @@ extern void android_server_PowerManagerService_goToSleep(nsecs_t eventTime);
 #endif
 #if defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 41)
 sp<MessageQueue> android_os_MessageQueue_getMessageQueue( JNIEnv* env, jobject messageQueueObj)
+{
+return 0;
+}
+#elif defined(SHORT_PLATFORM_VERSION) && (SHORT_PLATFORM_VERSION == 42)
+sp<MessageQueue> android_os_MessageQueue_getMessageQueue( JNIEnv* env, jobject messageQueueObj)
+{
+return 0;
+}
+sp<Surface> android_view_Surface_getSurface(JNIEnv* env, jobject surfaceObj)
 {
 return 0;
 }
